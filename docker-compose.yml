@@ -1,0 +1,20 @@
+services:
+  radufioul:
+    build: .
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Europe/Paris}
+      NTFY_URL: ${NTFY_URL:?definir NTFY_URL dans les variables Dokploy}
+      LAT: ${LAT:?definir LAT dans les variables Dokploy}
+      LON: ${LON:?definir LON dans les variables Dokploy}
+      RADIUS_KM: ${RADIUS_KM:-10}
+      FUELS: ${FUELS:-e10,sp95}
+      THRESHOLD: ${THRESHOLD:-2.00}
+      MAX_AGE_DAYS: ${MAX_AGE_DAYS:-3}
+      INTERVAL: ${INTERVAL:-1800}
+      STATE: /data/state.json
+    volumes:
+      - radufioul-state:/data
+
+volumes:
+  radufioul-state:
